@@ -9,7 +9,7 @@
 html {
   @include mat.theme((
     color: (
-      primary: mat.$azure-palette,
+      primary: mat.$blue-palette,
       tertiary: mat.$blue-palette,
     ),
     typography: Roboto,
@@ -33,7 +33,293 @@ body {
   // Reset the user agent margin.
   margin: 0;
 }
-/* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Custom Gators Blue theme overrides
+:root {
+  --gators-blue: #1e88e5;
+  --gators-blue-light: #42a5f5;
+  --gators-blue-dark: #1565c0;
+  --gators-blue-50: #e3f2fd;
+  --gators-blue-100: #bbdefb;
+  --gators-blue-200: #90caf9;
+  --gators-blue-300: #64b5f6;
+  --gators-blue-400: #42a5f5;
+  --gators-blue-500: #1e88e5;
+  --gators-blue-600: #1976d2;
+  --gators-blue-700: #1565c0;
+  --gators-blue-800: #0d47a1;
+  --gators-blue-900: #0a3d91;
+}
+
+/* Global styles for mobile-first design */
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  overflow-x: hidden; // Prevent horizontal scrolling
+}
+
+// Ensure proper viewport handling
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+// Mobile viewport fixes
+.app-container {
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+// Mobile-first responsive design
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+// Desktop navigation styles
+.desktop-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--mat-sys-surface);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--mat-sys-primary);
+    font-weight: 600;
+    font-size: 1.25rem;
+    
+    .brand-icon {
+      font-size: 28px;
+    }
+    
+    .brand-text {
+      white-space: nowrap;
+    }
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--mat-sys-on-surface-variant);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    
+    mat-icon {
+      font-size: 20px;
+    }
+    
+    &.active {
+      color: var(--mat-sys-primary);
+      background: var(--mat-sys-primary-container);
+    }
+    
+    &:hover {
+      background: var(--mat-sys-surface-variant);
+    }
+  }
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .user-menu, .logout-btn {
+    color: var(--mat-sys-on-surface-variant);
+    
+    &:hover {
+      background: var(--mat-sys-surface-variant);
+    }
+  }
+}
+
+// Mobile navigation styles
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--mat-sys-surface);
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 100vw;
+  
+  .nav-tabs {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    padding: 0 8px;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .nav-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--mat-sys-on-surface-variant);
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    min-width: 60px;
+    flex: 1;
+    max-width: 25%; // Ensure equal distribution
+    
+    mat-icon {
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+    
+    span {
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    
+    &.active {
+      color: var(--mat-sys-primary);
+      background: var(--mat-sys-primary-container);
+    }
+    
+    &:hover {
+      background: var(--mat-sys-surface-variant);
+    }
+  }
+}
+
+// Ensure content doesn't get hidden behind navigation
+.app-content {
+  padding-top: 80px; // Space for desktop navigation
+  padding-bottom: 80px; // Space for mobile navigation
+  min-height: 100vh;
+  
+  &.hide-nav {
+    padding-top: 0; // No padding when nav is hidden
+    padding-bottom: 0; // No padding when nav is hidden
+  }
+}
+
+// Mobile styles (default)
+@media (max-width: 767px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  
+  .mobile-nav {
+    display: block;
+  }
+  
+  .app-content {
+    padding-top: 0; // No top padding on mobile
+    padding-bottom: 80px; // Space for mobile navigation
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  .app-content.hide-nav {
+    padding-bottom: 0; // No bottom padding when nav is hidden
+  }
+  
+  // Prevent horizontal scrolling on mobile
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  .app-container {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  // Ensure all content fits within viewport
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  // Fix any potential overflow issues
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 16px;
+    margin: 0;
+  }
+}
+
+// Desktop styles
+@media (min-width: 768px) {
+  .container {
+    max-width: 1200px;
+    padding: 0 24px;
+  }
+  
+  .mobile-nav {
+    display: none;
+  }
+  
+  .desktop-nav {
+    display: block;
+  }
+  
+  .app-content {
+    padding-bottom: 0; // No bottom padding on desktop
+    padding-top: 80px; // Keep top padding for desktop nav
+  }
+  
+  .app-content.hide-nav {
+    padding-top: 0; // No top padding when nav is hidden
+  }
+}
+
+// Touch-friendly button sizes for mobile
+.mat-mdc-button, .mat-mdc-icon-button {
+  min-height: 44px; // iOS recommended touch target
+  min-width: 44px;
+}
+
+// Card spacing for mobile
+.mat-mdc-card {
+  margin-bottom: 16px;
+}
